@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.slieb</groupId>
+    <artifactId>closure-dependency-calculator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <plugin.maven-compiler-plugin>3.3</plugin.maven-compiler-plugin>
+        <dep.maven>3.3.1</dep.maven>
+        <dep.rhino>1.7R4</dep.rhino>
+        <dep.commons-io>2.4</dep.commons-io>
+        <dep.guava>18.0</dep.guava>
+        <dep.kute>0.5</dep.kute>
+        <dep.junit>4.12</dep.junit>
+        <dep.selenium>2.45.0</dep.selenium>
+        <dep.js-runtimes>1.0-SNAPSHOT</dep.js-runtimes>
+    </properties>
+
+    <prerequisites>
+        <maven>${dep.maven}</maven>
+    </prerequisites>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slieb</groupId>
+            <artifactId>dependency-calculator</artifactId>
+            <version>0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${dep.guava}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slieb</groupId>
+            <artifactId>kute</artifactId>
+            <version>${dep.kute}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.javascript</groupId>
+            <artifactId>closure-compiler</artifactId>
+            <version>2015-02-06_10-57-15</version>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.slieb</groupId>-->
+        <!--<artifactId>js-runtimes</artifactId>-->
+        <!--<version>${dep.js-runtimes}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>commons-io</groupId>-->
+        <!--<artifactId>commons-io</artifactId>-->
+        <!--<version>${dep.commons-io}</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.seleniumhq.selenium</groupId>-->
+        <!--<artifactId>selenium-remote-driver</artifactId>-->
+        <!--<version>${dep.selenium}</version>-->
+        <!--</dependency>-->
+
+
+        <!--<dependency>-->
+        <!--<groupId>junit</groupId>-->
+        <!--<artifactId>junit</artifactId>-->
+        <!--<version>${dep.junit}</version>-->
+        <!--</dependency>-->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin.maven-compiler-plugin}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
