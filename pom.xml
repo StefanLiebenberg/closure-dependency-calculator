@@ -47,32 +47,8 @@
         <dependency>
             <groupId>com.google.javascript</groupId>
             <artifactId>closure-compiler</artifactId>
-            <version>2015-02-06_10-57-15</version>
+            <version>v20150505</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.slieb</groupId>-->
-        <!--<artifactId>js-runtimes</artifactId>-->
-        <!--<version>${dep.js-runtimes}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>commons-io</groupId>-->
-        <!--<artifactId>commons-io</artifactId>-->
-        <!--<version>${dep.commons-io}</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-        <!--<groupId>org.seleniumhq.selenium</groupId>-->
-        <!--<artifactId>selenium-remote-driver</artifactId>-->
-        <!--<version>${dep.selenium}</version>-->
-        <!--</dependency>-->
-
-
-        <!--<dependency>-->
-        <!--<groupId>junit</groupId>-->
-        <!--<artifactId>junit</artifactId>-->
-        <!--<version>${dep.junit}</version>-->
-        <!--</dependency>-->
-
     </dependencies>
 
     <build>
