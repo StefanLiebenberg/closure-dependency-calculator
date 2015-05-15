@@ -6,7 +6,7 @@
 
     <groupId>org.slieb</groupId>
     <artifactId>closure-dependency-calculator</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>Closure Dependency Calculator</name>
     <description>A Dependency Calculcator for files that use goog.provide and goog.require calls</description>
     <url>http://stefanlielbenberg.github.io/closure-dependency-calculator</url>
@@ -36,7 +36,7 @@
         <dep.guava>18.0</dep.guava>
         <dep.kute>0.5</dep.kute>
         <dep.junit>4.12</dep.junit>
-        <dep.js-runtimes>1.1</dep.js-runtimes>
+        <dep.dependency-calculator>0.3</dep.dependency-calculator>
         <dep.closure-compiler>v20150505</dep.closure-compiler>
     </properties>
 
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>org.slieb</groupId>
             <artifactId>dependency-calculator</artifactId>
-            <version>0.3</version>
+            <version>${dep.dependency-calculator}</version>
         </dependency>
         <dependency>
             <groupId>org.slieb</groupId>
