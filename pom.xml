@@ -6,7 +6,7 @@
 
     <groupId>org.slieb</groupId>
     <artifactId>closure-dependency-calculator</artifactId>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <name>Closure Dependency Calculator</name>
     <description>A Dependency Calculcator for files that use goog.provide and goog.require calls</description>
     <url>http://stefanlielbenberg.github.io/closure-dependency-calculator</url>
