@@ -2,7 +2,7 @@ package org.slieb.closure.dependencies;
 
 import org.junit.Before;
 import org.junit.Test;
-import slieb.kute.resources.Resources;
+import slieb.kute.Kute;
 
 import java.io.InputStream;
 
@@ -21,7 +21,7 @@ public class GoogDependencyParserTest {
     @Test
     public void parseBaseFindsNoRequiresOrProvides() throws Throwable {
         try (InputStream inputStream = getClass().getResourceAsStream("/closure-library/closure/goog/base.js")) {
-            GoogDependencyNode node = parser.parse(Resources.inputStreamResource("base.js", () -> inputStream));
+            GoogDependencyNode node = parser.parse(Kute.inputStreamResource("base.js", () -> inputStream));
             assertTrue(node.isBaseFile());
             assertTrue(node.getRequires().isEmpty());
             assertTrue(node.getProvides().isEmpty());
@@ -31,7 +31,7 @@ public class GoogDependencyParserTest {
     @Test
     public void parseGoogArrayFindsNoRequiresOrProvides() throws Throwable {
         try (InputStream inputStream = getClass().getResourceAsStream("/closure-library/closure/goog/array/array.js")) {
-            GoogDependencyNode node = parser.parse(Resources.inputStreamResource("base.js", () -> inputStream));
+            GoogDependencyNode node = parser.parse(Kute.inputStreamResource("base.js", () -> inputStream));
             assertFalse(node.isBaseFile());
             assertFalse(node.getRequires().isEmpty());
             assertEquals(1, node.getRequires().size());
@@ -47,7 +47,7 @@ public class GoogDependencyParserTest {
     @Test
     public void parseIfConstructs() throws Throwable {
         String code = "if(COMPILED) { goog.require('x'); } else { goog.require('y'); }";
-        GoogDependencyNode node = parser.parse(Resources.stringResource("/inline.js", code));
+        GoogDependencyNode node = parser.parse(Kute.stringResource("/inline.js", code));
         assertTrue(node.getProvides().isEmpty());
         assertFalse(node.getRequires().isEmpty());
         assertEquals(2, node.getRequires().size());
@@ -57,9 +57,10 @@ public class GoogDependencyParserTest {
 
     @Test
     public void parseDefineTest() throws Throwable {
-        try (InputStream inputStream = getClass().getResourceAsStream("/closure-library/closure/goog/defineclass_test.js")) {
+        try (InputStream inputStream = getClass().getResourceAsStream(
+                "/closure-library/closure/goog/defineclass_test.js")) {
             assertNotNull(inputStream);
-            GoogDependencyNode node = parser.parse(Resources.inputStreamResource("defineclass_test.js", () -> inputStream));
+            GoogDependencyNode node = parser.parse(Kute.inputStreamResource("defineclass_test.js", () -> inputStream));
             assertTrue(node.getProvides().contains("goog.defineClassTest"));
             assertTrue(node.getRequires().contains("goog.testing.jsunit"));
         }

@@ -13,27 +13,36 @@ import com.google.javascript.rhino.Token;
 import org.slieb.dependencies.DependencyParser;
 import slieb.kute.api.Resource;
 
+import java.io.IOException;
+
 import static com.google.javascript.jscomp.NodeUtil.visitPreOrder;
 import static com.google.javascript.jscomp.parsing.ParserRunner.createConfig;
 
 public class GoogDependencyParser implements DependencyParser<Resource.Readable, GoogDependencyNode> {
 
-    private static final Config CONFIG = createConfig(true, Config.LanguageMode.ECMASCRIPT6_STRICT, true, null);
+    private static final Config CONFIG = createConfig(true, Config.LanguageMode.ECMASCRIPT6_STRICT, null);
 
     private static final ErrorReporter REPORTER = new SimpleErrorReporter();
 
-    public GoogDependencyParser() {
-    }
 
     @Override
     public GoogDependencyNode parse(Resource.Readable resource) {
+
+        return parse(resource, GoogResources.getSourceFileFromResource(resource));
+    }
+
+    public GoogDependencyNode parse(Resource.Readable resource,
+                                    SourceFile sourceFile) {
         try {
-            SourceFile sourceFile = GoogResources.getSourceFileFromResource(resource);
-            ParserRunner.ParseResult result = ParserRunner.parse(sourceFile, sourceFile.getCode(), CONFIG, REPORTER);
-            return new Visitor(resource).parse(result.ast);
+            return new Visitor(resource).parse(parseSourceFile(sourceFile).ast);
         } catch (Exception ioException) {
             throw new RuntimeException(String.format("Could not parse dependencies of %s", resource), ioException);
         }
+    }
+
+    private ParserRunner.ParseResult parseSourceFile(SourceFile sourceFile)
+            throws IOException {
+        return ParserRunner.parse(sourceFile, sourceFile.getCode(), CONFIG, REPORTER);
     }
 
 }
@@ -41,6 +50,7 @@ public class GoogDependencyParser implements DependencyParser<Resource.Readable,
 class Builder {
 
     private Boolean isBaseFile = false;
+    private Boolean isModule = false;
     private final ImmutableSet.Builder<String> provides, requires;
     private Resource.Readable resource;
 
@@ -55,6 +65,12 @@ class Builder {
         return this;
     }
 
+    public Builder addModule(String module) {
+        this.isModule = true;
+        this.provides.add(module);
+        return this;
+    }
+
     public Builder addRequire(String require) {
         requires.add(require);
         return this;
@@ -66,8 +82,11 @@ class Builder {
     }
 
     public GoogDependencyNode build() {
-        return new GoogDependencyNode(resource, provides.build(), requires.build(), isBaseFile);
+        return new GoogDependencyNode(resource, provides.build(),
+                                      requires.build(), isBaseFile);
     }
+
+
 }
 
 class Visitor implements NodeUtil.Visitor {
@@ -90,11 +109,16 @@ class Visitor implements NodeUtil.Visitor {
                 if (callChild.isGetProp()) {
                     if (callChild.getQualifiedName() != null) {
                         switch (callChild.getQualifiedName()) {
+                            case "goog.module":
+                                builder.addModule(node.getChildAtIndex(1).getString());
+                                break;
                             case "goog.provide":
-                                builder.addProvide(node.getChildAtIndex(1).getString());
+                                builder.addProvide(
+                                        node.getChildAtIndex(1).getString());
                                 break;
                             case "goog.require":
-                                builder.addRequire(node.getChildAtIndex(1).getString());
+                                builder.addRequire(
+                                        node.getChildAtIndex(1).getString());
                                 break;
                         }
                     }

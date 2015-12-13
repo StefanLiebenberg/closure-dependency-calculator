@@ -30,14 +30,14 @@
         <plugin.maven-surefire-plugin>2.18.1</plugin.maven-surefire-plugin>
         <plugin.maven-clean-plugin>2.6.1</plugin.maven-clean-plugin>
         <plugin.maven-source-plugin>2.4</plugin.maven-source-plugin>
-        <plugin.site-maven-plugin>0.11</plugin.site-maven-plugin>
+        <plugin.site-maven-plugin>0.12</plugin.site-maven-plugin>
         <plugin.maven-resources-plugin>2.7</plugin.maven-resources-plugin>
         <dep.maven>3.3.1</dep.maven>
-        <dep.guava>18.0</dep.guava>
-        <dep.kute>0.6</dep.kute>
+        <dep.guava>19.0</dep.guava>
+        <dep.kute>1.0</dep.kute>
         <dep.junit>4.12</dep.junit>
-        <dep.dependency-calculator>0.4</dep.dependency-calculator>
-        <dep.closure-compiler>v20150505</dep.closure-compiler>
+        <dep.dependency-calculator>0.6</dep.dependency-calculator>
+        <dep.closure-compiler>v20151015</dep.closure-compiler>
     </properties>
 
     <prerequisites>
@@ -78,6 +78,11 @@
     </distributionManagement>
     <dependencies>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+        <dependency>
             <groupId>org.slieb</groupId>
             <artifactId>dependency-calculator</artifactId>
             <version>${dep.dependency-calculator}</version>
@@ -107,6 +112,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
